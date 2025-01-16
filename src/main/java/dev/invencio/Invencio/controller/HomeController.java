@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import dev.invencio.Invencio.model.Admin;
 import dev.invencio.Invencio.model.Stock;
 import dev.invencio.Invencio.service.InvencioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,11 +35,6 @@ public class HomeController {
         return "AddStock/addStock";
     }
 
-    @GetMapping("/add-admin")
-    public String addAdmin() {
-        return "AddAdmin/add-admin";
-    }
-
     @PostMapping("/add-stock")
     public String addStock(@ModelAttribute Stock invencio) throws IOException {
         System.out.println(invencio);
@@ -51,4 +48,19 @@ public class HomeController {
     public String viewStock() {
         return "Product/product";
     }
+
+    // add admin
+
+    @GetMapping("/addadmin")
+    public String addAdmin() {
+        return "AddAdmin/add-admin";
+    }
+
+    @PostMapping("/add-admin")
+    public String postMethodName(@ModelAttribute Admin admin) throws IOException {
+        System.out.println(admin);
+        service.createAdmin(admin);
+        return "redirect:/dashboard";
+    }
+
 }
