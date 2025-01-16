@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import dev.invencio.Invencio.model.Invencio;
+import dev.invencio.Invencio.model.Stock;
 import dev.invencio.Invencio.service.InvencioService;
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +34,7 @@ public class HomeController {
     }
 
     @PostMapping("/add-stock")
-    public String addStock(@ModelAttribute Invencio invencio) throws IOException {
+    public String addStock(@ModelAttribute Stock invencio) throws IOException {
         System.out.println(invencio);
         service.createNewStock(invencio);
         return "redirect:/addstock";

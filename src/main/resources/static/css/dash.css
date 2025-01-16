@@ -107,11 +107,12 @@ article {
 }
 
 #art2-imgcontainer {
-  position: fixed;
-  right: 0;
-  top: 0;
-  margin: 1rem;
-  padding: 1rem;
+  width: 30%;
+  img {
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 50%;
+  }
 }
 /* article 2 end */
 

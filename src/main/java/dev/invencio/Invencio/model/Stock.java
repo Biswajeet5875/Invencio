@@ -13,16 +13,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Invencio {
+public class Stock {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     public String stockId;
     public String itemName;
     public String category;
     public String quantity;
     public String price;
     public String warehouse;
-    public String restockThreshold;
+    public String batchNo;
     @Lob
     public String description;
 
