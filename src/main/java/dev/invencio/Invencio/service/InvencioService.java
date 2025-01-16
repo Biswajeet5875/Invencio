@@ -3,7 +3,7 @@ package dev.invencio.Invencio.service;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import dev.invencio.Invencio.model.Invencio;
+import dev.invencio.Invencio.model.Stock;
 import dev.invencio.Invencio.repository.InvencioRepo;
 import lombok.RequiredArgsConstructor;
 
@@ -15,7 +15,7 @@ public class InvencioService {
 
     public final JdbcTemplate jdbcTemplate;
 
-    public void createNewStock(Invencio invencio) {
+    public void createNewStock(Stock invencio) {
 
         invencioRepo.save(invencio);
 

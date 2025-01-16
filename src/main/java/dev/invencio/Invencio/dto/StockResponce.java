@@ -5,13 +5,14 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class InvencioResponce {
+public class StockResponce {
 
-    private int stockId;
+    private String stockId;
     private String itemName;
     private String category;
     private int quantity;
     private int price;
     private String warehouse;
     private String description;
+    private String batchNo;
 }
