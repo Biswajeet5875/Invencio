@@ -39,4 +39,11 @@ public class HomeController {
         service.createNewStock(invencio);
         return "redirect:/addstock";
     }
+
+    // view product
+
+    @GetMapping("/viewstock")
+    public String viewStock() {
+        return "Product/product";
+    }
 }
