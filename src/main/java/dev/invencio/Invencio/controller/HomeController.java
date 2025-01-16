@@ -70,19 +70,14 @@ public class HomeController {
     @GetMapping("/getalladmin")
     public String getAllAdmin(Model model) {
         List<AdminResponse> adminList = service.getAllAdmin();
-        model.addAttribute("adminList", adminList); // Add the list to the model
-        System.out.println(adminList); // Optional for debugging
-        return "AddAdmin/show-admin"; // Ensure this is the correct Thymeleaf template path
+        model.addAttribute("adminList", adminList);
+        return "ShowAdmin/show-admin";
     }
 
     @GetMapping("/{id}")
     public String getAdminById(@PathVariable String id, Model model) {
         AdminResponse adminResponse = service.getAdminById(id);
-
-        // Add the admin response to the model
         model.addAttribute("admin", adminResponse);
-
-        // Return the name of the Thymeleaf template
         return "Dashboard/dash";
     }
 

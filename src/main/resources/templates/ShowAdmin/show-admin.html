@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin List</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7f6;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      .admin-card {
+        background-color: #ffffff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .admin-card h2 {
+        margin-bottom: 15px;
+        color: #2c3e50;
+        font-size: 1.6rem;
+      }
+
+      .admin-card p {
+        font-size: 1rem;
+        margin: 10px 0;
+        color: #7f8c8d;
+      }
+
+      .label {
+        font-weight: bold;
+        color: #34495e;
+      }
+
+      .value {
+        color: #2ecc71;
+      }
+
+      .admin-card .admin-info {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .admin-card .admin-info div {
+        width: 45%;
+      }
+
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 30px;
+        font-size: 1rem;
+        color: #3498db;
+        text-decoration: none;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Admin List</h1>
+
+      <!-- Iterate over the admin list and display each admin in a content description format -->
+      <div th:each="admin : ${adminList}" class="admin-card">
+        <h2 th:text="${admin.fullName}"></h2>
+        <div class="admin-info">
+          <div>
+            <p>
+              <span class="label">Role:</span>
+              <span class="value" th:text="${admin.role}"></span>
+            </p>
+            <p>
+              <span class="label">Email:</span>
+              <span class="value" th:text="${admin.email}"></span>
+            </p>
+          </div>
+          <div>
+            <p>
+              <span class="label">Phone:</span>
+              <span class="value" th:text="${admin.phone}"></span>
+            </p>
+            <p>
+              <span class="label">Username:</span>
+              <span class="value" th:text="${admin.username}"></span>
+            </p>
+          </div>
+        </div>
+        <div>
+          <p>
+            <span class="label">BRN:</span>
+            <span class="value" th:text="${admin.brn}"></span>
+          </p>
+          <p>
+            <span class="label">TIN:</span>
+            <span class="value" th:text="${admin.tin}"></span>
+          </p>
+          <p>
+            <span class="label">Address:</span>
+            <span class="value" th:text="${admin.address}"></span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Link back to dashboard or list -->
+      <a href="/" class="back-link">Back to Dashboard</a>
+    </div>
+  </body>
+</html>
