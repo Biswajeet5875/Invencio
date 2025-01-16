@@ -33,6 +33,11 @@ public class HomeController {
         return "AddStock/addStock";
     }
 
+    @GetMapping("/add-admin")
+    public String addAdmin() {
+        return "AddAdmin/add-admin";
+    }
+
     @PostMapping("/add-stock")
     public String addStock(@ModelAttribute Stock invencio) throws IOException {
         System.out.println(invencio);
