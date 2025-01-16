@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class Invencio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public String stockId;
     public String itemName;
     public String category;
     public String quantity;

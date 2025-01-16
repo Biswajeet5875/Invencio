@@ -28,14 +28,15 @@ public class HomeController {
         return "Dashboard/dash";
     }
 
-    @GetMapping("/newstock")
+    @GetMapping("/addstock")
     public String addStock() {
         return "AddStock/addStock";
     }
 
-    @PostMapping("/addstock")
-    public String addStock(@ModelAttribute Invencio invencio, @RequestParam int stockId) throws IOException {
+    @PostMapping("/add-stock")
+    public String addStock(@ModelAttribute Invencio invencio) throws IOException {
+        System.out.println(invencio);
         service.createNewStock(invencio);
-        return "redirect:/newstock";
+        return "redirect:/addstock";
     }
 }
