@@ -20,3 +20,5 @@ slider.oninput = function () {
     }
   });
 };
+
+

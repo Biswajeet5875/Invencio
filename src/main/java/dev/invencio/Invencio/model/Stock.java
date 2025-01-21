@@ -19,7 +19,7 @@ public class Stock {
     public String stockId;
     public String itemName;
     public String category;
-    public String quantity;
+    public int quantity;
     public String price;
     public String warehouse;
     public String batchNo;
