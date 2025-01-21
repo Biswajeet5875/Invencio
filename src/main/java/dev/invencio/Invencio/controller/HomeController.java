@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import dev.invencio.Invencio.mapper.StockMapper;
 import dev.invencio.Invencio.dto.AdminResponse;
 import dev.invencio.Invencio.model.Admin;
 import dev.invencio.Invencio.model.Stock;
@@ -50,10 +52,40 @@ public class HomeController {
     // view product
 
     @GetMapping("/viewstock")
-    public String viewStock() {
+    public String viewStock(Model model) {
+        List<Stock> stocks = service.getAllStocks();
+        var stockResponse = stocks.stream().map(StockMapper::convertStockToResponse).toList();
+        model.addAttribute("response", stockResponse);
         return "Product/product";
     }
 
+    @GetMapping("/low-stock")
+    public String lowStock(Model model) {
+        List<Stock> stocks = service.getLowStocks();
+        var stockResponse = stocks.stream().map(StockMapper::convertStockToResponse).toList();
+        model.addAttribute("response", stockResponse);
+        return "Product/product";
+    }
+
+    @GetMapping("/update-stock")
+    public String updateStock(@RequestParam String stockId, Model model) {
+        var stocks = service.getStockById(stockId);
+        model.addAttribute("stock", stocks);
+        return "UpdateStock/update-product";
+    }
+
+    @PostMapping("/update-stock")
+    public String putMethodName(@ModelAttribute Stock stock, @RequestParam String stockId) {
+        System.out.println(stockId);
+        service.updateStock(stock, stockId);
+        return "redirect:/viewstock";
+    }
+
+    @GetMapping("/delete-stock")
+    public String deleteStock(@RequestParam String stockId) {
+        service.deleteStock(stockId);
+        return "redirect:/viewstock";
+    }
     // add admin
 
     @GetMapping("/addadmin")
