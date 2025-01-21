@@ -7,13 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dev.invencio.Invencio.mapper.StockMapper;
+import dev.invencio.Invencio.dto.AdminResponse;
+import dev.invencio.Invencio.model.Admin;
 import dev.invencio.Invencio.model.Stock;
 import dev.invencio.Invencio.service.InvencioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,11 +39,6 @@ public class HomeController {
     @GetMapping("/addstock")
     public String addStock() {
         return "AddStock/addStock";
-    }
-
-    @GetMapping("/add-admin")
-    public String addAdmin() {
-        return "AddAdmin/add-admin";
     }
 
     @PostMapping("/add-stock")
@@ -85,4 +85,32 @@ public class HomeController {
         service.deleteStock(stockId);
         return "redirect:/viewstock";
     }
+    // add admin
+
+    @GetMapping("/addadmin")
+    public String addAdmin() {
+        return "AddAdmin/add-admin";
+    }
+
+    @PostMapping("/add-admin")
+    public String postMethodName(@ModelAttribute Admin admin) throws IOException {
+        System.out.println(admin);
+        service.createAdmin(admin);
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping("/getalladmin")
+    public String getAllAdmin(Model model) {
+        List<AdminResponse> adminList = service.getAllAdmin();
+        model.addAttribute("adminList", adminList);
+        return "ShowAdmin/show-admin";
+    }
+
+    @GetMapping("/{id}")
+    public String getAdminById(@PathVariable String id, Model model) {
+        AdminResponse adminResponse = service.getAdminById(id);
+        model.addAttribute("admin", adminResponse);
+        return "Dashboard/dash";
+    }
+
 }
