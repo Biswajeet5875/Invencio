@@ -12,19 +12,59 @@
 }
 
 body {
+}
+#main-body {
   font-family: "Nunito", sans-serif;
   display: flex;
-  align-items: center;
+
   justify-content: center;
 
   background: var(--col-light);
   background-repeat: no-repeat;
   background-size: cover;
   color: var(--col-dark);
+  min-height: 100vh;
 }
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #232f3e;
+}
+
+.header .search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.header .search-bar input {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.header .search-bar button {
+  background-color: #effeef;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #250000;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 img {

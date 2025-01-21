@@ -114,4 +114,11 @@ public class HomeController {
         return "Dashboard/dash";
     }
 
+    // cart page
+
+    @GetMapping("/cart")
+    public String getMethodName() {
+        return "CartPage/cart";
+    }
+
 }
