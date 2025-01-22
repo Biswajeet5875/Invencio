@@ -37,6 +37,13 @@ public class HomeController {
         return "Dashboard/dash";
     }
 
+    @GetMapping("/{id}")
+    public String getAdminById(@PathVariable String id, Model model) {
+        AdminResponse adminResponse = service.getAdminById(id);
+        model.addAttribute("admin", adminResponse);
+        return "Dashboard/dash";
+    }
+
     @GetMapping("/addstock")
     public String addStock() {
         return "AddStock/addStock";
@@ -105,13 +112,6 @@ public class HomeController {
         List<AdminResponse> adminList = service.getAllAdmin();
         model.addAttribute("adminList", adminList);
         return "ShowAdmin/show-admin";
-    }
-
-    @GetMapping("/{id}")
-    public String getAdminById(@PathVariable String id, Model model) {
-        AdminResponse adminResponse = service.getAdminById(id);
-        model.addAttribute("admin", adminResponse);
-        return "Dashboard/dash";
     }
 
     // cart page

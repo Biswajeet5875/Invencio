@@ -1,24 +1,9 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-:root {
-  --col-dark: #250000;
-  --col-light: #f5fff4;
-}
-
 body {
 }
 #main-body {
   font-family: "Nunito", sans-serif;
   display: flex;
-
   justify-content: center;
-
   background: var(--col-light);
   background-repeat: no-repeat;
   background-size: cover;
@@ -62,7 +47,7 @@ body::-webkit-scrollbar {
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
-  color: #250000;
+  color: var(--col-dark);
   font-weight: bold;
   cursor: pointer;
 }

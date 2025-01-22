@@ -8,100 +8,103 @@
   </head>
 
   <body>
-    <div class="container">
-      <h1>Add Admin</h1>
-      <form id="add-admin-form" method="post" action="/add-admin">
-        <div class="form-group">
-          <label for="full-name">Full Name:</label>
-          <input
-            type="text"
-            id="full-name"
-            name="fullName"
-            placeholder="Enter Full Name"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="role">Role:</label>
-          <select id="role" name="role" required>
-            <option value="">Select Role</option>
-            <option value="Seller">Owner</option>
-            <option value="Seller">Supervisor</option>
-            <option value="Admin">Admin</option>
-            <option value="Seller">Seller</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter Email"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number:</label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            placeholder="Enter Phone Number"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Enter Username"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Enter Password"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="brn">Business Registration Number:</label>
-          <input
-            type="text"
-            id="brn"
-            name="brn"
-            placeholder="Enter Business Registration Number"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="tin">Tax Identification Number (TIN):</label>
-          <input
-            type="text"
-            id="tin"
-            name="tin"
-            placeholder="Enter Tax Identification Number (TIN)"
-            required
-          />
-        </div>
-        <div class="form-group span2">
-          <label for="address">Address:</label>
-          <textarea
-            id="address"
-            name="address"
-            rows="1"
-            placeholder="Enter Address"
-          ></textarea>
-        </div>
-        <button type="submit" class="submit-btn span2">Add Admin</button>
-      </form>
-    </div>
+    <main>
+      <nav th:replace="Navbar/navbar.html::nav"></nav>
+      <div class="container">
+        <h1>New Administrator</h1>
+        <form id="add-admin-form" method="post" action="/add-admin">
+          <div class="form-group">
+            <label for="full-name">Full Name:</label>
+            <input
+              type="text"
+              id="full-name"
+              name="fullName"
+              placeholder="Enter Full Name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="role">Role:</label>
+            <select id="role" name="role" required>
+              <option value="">Select Role</option>
+              <option value="Seller">Owner</option>
+              <option value="Seller">Supervisor</option>
+              <option value="Admin">Admin</option>
+              <option value="Seller">Seller</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter Email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Enter Phone Number"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter Username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter Password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="brn">Business Registration Number:</label>
+            <input
+              type="text"
+              id="brn"
+              name="brn"
+              placeholder="Enter Business Registration Number"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="tin">Tax Identification Number (TIN):</label>
+            <input
+              type="text"
+              id="tin"
+              name="tin"
+              placeholder="Enter Tax Identification Number (TIN)"
+              required
+            />
+          </div>
+          <div class="form-group span2">
+            <label for="address">Address:</label>
+            <textarea
+              id="address"
+              name="address"
+              rows="1"
+              placeholder="Enter Address"
+            ></textarea>
+          </div>
+          <button type="submit" class="submit-btn span2">Add Admin</button>
+        </form>
+      </div>
+    </main>
   </body>
 </html>

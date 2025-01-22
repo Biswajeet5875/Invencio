@@ -6,8 +6,8 @@
   margin: 0;
 }
 :root {
-  --col-dark: #250000;
-  --col-light: #f5fff4;
+  --col-dark: #002000;
+  --col-light: #f0fff0;
 }
 
 body {
@@ -15,8 +15,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* background-image: url(https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/5baf8325-ed69-40b0-b9d2-d8c5d2bde3b0); */
   background-repeat: no-repeat;
   background-size: cover;
   color: var(--col-dark);
@@ -42,11 +40,11 @@ main {
   grid-template-columns: 13% 87%;
   width: 100%;
   min-height: 100vh;
-  margin: 10px;
+
   background: var(--col-light);
   box-shadow: 0 0.5px 0 1px rgba(255, 255, 255, 0.23) inset,
     0 1px 0 0 rgba(255, 255, 255, 0.66) inset, 0 4px 16px rgba(0, 0, 0, 0.12);
-  border-radius: 15px;
+
   z-index: 10;
 }
 
@@ -54,9 +52,9 @@ main {
   overflow: hidden;
   background: var(--col-dark);
   padding-top: 10px;
-  border-radius: 15px 0 0 15px;
+  /* border-radius: 15px 0 0 15px; */
   font-family: "Roboto", sans-serif;
-  color: #efffee;
+  color: var(--col-light);
 }
 
 .main-menu h1 {
