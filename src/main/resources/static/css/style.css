@@ -8,8 +8,8 @@ html {
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background: #250000;
-    color: #250000;
+    background: #002000;
+    color: #002000;
     height: 100%;
 }
 
@@ -69,7 +69,7 @@ section {
 }
 
 .btn-get-started {
-    background: #250000;
+    background: #002000;
     color: #fff;
     padding: 0.625rem 1.25rem;
     /* 10px 20px */

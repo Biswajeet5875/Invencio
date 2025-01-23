@@ -9,7 +9,6 @@ public class StockMapper {
     public static StockResponce convertStockToResponse(Stock stock) {
         var response = new StockResponce();
         BeanUtils.copyProperties(stock, response);
-        System.out.println(response);
         return response;
     }
 }
