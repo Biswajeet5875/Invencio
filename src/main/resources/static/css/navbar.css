@@ -19,6 +19,7 @@ body {
   background-size: cover;
   color: var(--col-dark);
 }
+
 nav {
   user-select: none;
   -webkit-user-select: none;
@@ -37,7 +38,7 @@ nav ul li a {
 }
 main {
   display: grid;
-  grid-template-columns: 13% 87%;
+  grid-template-columns: 18% 80%;
   width: 100%;
   min-height: 100vh;
 
@@ -52,7 +53,6 @@ main {
   overflow: hidden;
   background: var(--col-dark);
   padding-top: 10px;
-  /* border-radius: 15px 0 0 15px; */
   font-family: "Roboto", sans-serif;
   color: var(--col-light);
 }
@@ -82,7 +82,6 @@ main {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  color: var(--col-light);
   font-size: 1rem;
   padding: 15px 0;
   margin-left: 10px;
@@ -154,4 +153,18 @@ main {
   height: 20px;
 }
 
-/* CONTENT */
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-left: 4px solid transparent;
+}
+a {
+  color: var(--col-light);
+  font-weight: 500;
+}
