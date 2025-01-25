@@ -86,7 +86,7 @@ button:hover {
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   color: var(--col-light);
   margin: 2rem;

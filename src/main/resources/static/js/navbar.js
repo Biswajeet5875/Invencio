@@ -1,10 +1,11 @@
-const navItems = document.querySelectorAll(".nav-item");
+// const navItems = document.querySelectorAll(".nav-item");
 
-navItems.forEach((navItem, i) => {
-  navItem.addEventListener("click", () => {
-    navItems.forEach((item, j) => {
-      item.className = "nav-item";
-    });
-    navItem.className = "nav-item active";
-  });
-});
+// navItems.forEach((navItem) => {
+//   navItem.addEventListener("click", () => {
+//     navItems.forEach((item) => {
+//       item.classList.remove("active");
+//     });
+
+//     navItem.classList.add("active");
+//   });
+// });
