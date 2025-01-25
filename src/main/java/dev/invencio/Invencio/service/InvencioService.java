@@ -63,6 +63,11 @@ public class InvencioService {
                 .orElseThrow(() -> new RuntimeException("Admin not found with id " + id));
     }
 
+    public String loginAdmin(String username, String password) {
+        var admin = invencioAdminRepo.findByUsernameAndPassword(username, password);
+        return (admin != null) ? admin.getAdminId() : null;
+    }
+
     public StockResponce getStockById(String stockId) {
         return invencioRepo.findById(stockId).map(StockMapper::convertStockToResponse).orElse(null);
     }

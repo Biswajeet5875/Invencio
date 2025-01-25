@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="css/adminLogin.css" />
+</head>
+
+<body>
+    <main>
+        <nav th:replace="Navbar/navbar.html::nav"></nav>
+        <div class="container">
+            <h1>Admin Login</h1>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter Username" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required />
+                </div>
+                <button type="button" id="login-button" class="submit-btn span2">Login</button>
+            </form>
+            <p id="error-message" style="color: red; display: none;"></p>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('login-button').addEventListener('click', async () => {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            console.log(username, password);
+
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Redirect to another page on successful login
+                console.log(data);
+
+                document.cookie = `username=${data.userId}`;
+                localStorage.setItem('username', data.userId);
+
+                window.location.href = `/${data.userId}`;
+            } else {
+                // Display error message
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = data.message || 'Invalid username or password';
+            }
+        });
+    </script>
+</body>
+
+</html>

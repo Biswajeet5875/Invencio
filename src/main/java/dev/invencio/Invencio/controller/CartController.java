@@ -25,16 +25,12 @@ public class CartController {
 
     @PostMapping("/add-to-cart")
     public ResponseEntity<?> addToCart(@RequestParam String stockId, @RequestParam int quantity) {
-        // Fetch stock details
-        System.out.println("0     " + stockId);
         var stockResponce = stockService.getStockById(stockId);
 
-        // Check if the stock exists
         if (stockResponce == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stock not found for ID: " + stockId);
         }
 
-        // Return stock details along with quantity
         Map<String, Object> response = new HashMap<>();
         response.put("stockId", stockResponce.getStockId());
         response.put("stockName", stockResponce.getItemName());

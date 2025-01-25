@@ -26,8 +26,17 @@
       <section id="main-body">
         <div class="product-list">
           <div data-th-each="stock : ${response}" class="product">
-            <div class="img">
-              <img src="images/product.jpg" alt="Product Image" />
+            <div class="img" data-th-if="${stock.category == 'electronics'}">
+              <img src="images/electronic.png" alt="Product Image" />
+            </div>
+            <div class="img" data-th-if="${stock.category == 'apparel'}">
+              <img src="images/apparel.png" alt="Product Image" />
+            </div>
+            <div class="img" data-th-if="${stock.category == 'home-appliances'}">
+              <img src="images/home-appliances.png" alt="Product Image" />
+            </div>
+            <div class="img" data-th-if="${stock.category == 'groceries'}">
+              <img src="images/groceries.png" alt="Product Image" />
             </div>
             <div class="info">
               <h3 data-th-text="${stock.itemName}"></h3>

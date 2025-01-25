@@ -53,7 +53,6 @@ public class HomeController {
 
     @PostMapping("/add-stock")
     public String addStock(@ModelAttribute Stock invencio) throws IOException {
-        System.out.println(invencio);
         service.createNewStock(invencio);
         return "redirect:/addstock";
     }
@@ -111,12 +110,9 @@ public class HomeController {
     @PostMapping("/update-stock-quantity")
     public ResponseEntity<String> updateStockQuantity(@RequestBody List<CartItem> cartItems) {
         try {
-            // Attempt to update stock quantities
             service.updateStockQuantities(cartItems);
             return ResponseEntity.ok("Stock updated successfully!");
         } catch (RuntimeException e) {
-            // Handle custom runtime exceptions (e.g., insufficient stock or stock not
-            // found)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             // Handle general exceptions
@@ -149,6 +145,11 @@ public class HomeController {
         List<AdminResponse> adminList = service.getAllAdmin();
         model.addAttribute("adminList", adminList);
         return "ShowAdmin/show-admin";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
 }
