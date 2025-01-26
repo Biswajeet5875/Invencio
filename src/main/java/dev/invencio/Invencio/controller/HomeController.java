@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import dev.invencio.Invencio.mapper.StockMapper;
 import dev.invencio.Invencio.dto.AdminResponse;
+import dev.invencio.Invencio.dto.StockResponce;
 import dev.invencio.Invencio.model.Admin;
 import dev.invencio.Invencio.model.CartItem;
 import dev.invencio.Invencio.model.Stock;
@@ -42,6 +43,11 @@ public class HomeController {
     @GetMapping("/{id}")
     public String getAdminById(@PathVariable String id, Model model) {
         AdminResponse adminResponse = service.getAdminById(id);
+        List<StockResponce> stockResponce = service.getTop5Stocks();
+        List<Stock> stocks = service.getLowStocks();
+        var stockResponse1 = stocks.stream().map(StockMapper::convertStockToResponse).toList();
+        model.addAttribute("lowStock", stockResponse1);
+        model.addAttribute("stock", stockResponce);
         model.addAttribute("admin", adminResponse);
         return "Dashboard/dash";
     }

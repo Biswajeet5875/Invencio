@@ -76,6 +76,13 @@ public class InvencioService {
         return invencioRepo.findAll();
     }
 
+    public List<StockResponce> getTop5Stocks() {
+        return invencioRepo.findTop5ByOrderByItemName()
+                .stream()
+                .map(StockMapper::convertStockToResponse)
+                .collect(Collectors.toList());
+    }
+
     public List<Stock> getStockBySearchTerm(String searchTerm) {
         return invencioRepo.findByItemNameContaining(searchTerm);
     }

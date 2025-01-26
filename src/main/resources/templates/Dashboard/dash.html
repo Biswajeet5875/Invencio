@@ -1,174 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>INVENCIO</title>
 
-    <link rel="stylesheet" href="css/dash.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <title>INVENCIO</title>
 
-  <body>
-    <main>
-      <nav th:replace="Navbar/navbar.html::nav"></nav>
-      <!--  -->
-      <section id="main-content">
-        <section class="container">
-          <article id="art1">
-            <h2>Total Stock</h2>
-            <div id="art1-container">
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
-              <div class="tot-stock">
-                <p>product</p>
-                <span>200kg</span>
-              </div>
+  <link rel="stylesheet" href="css/dash.css" />
+</head>
+
+<body>
+  <main>
+    <nav th:replace="Navbar/navbar.html::nav"></nav>
+    <!--  -->
+    <section id="main-content">
+      <section class="container">
+        <article id="art1">
+          <h2>Total Stock</h2>
+          <div id="art1-container">
+            <div class="tot-stock" data-th-each="stock : ${stock}">
+              <p data-th-text="${stock.itemName}"></p>
+              <span data-th-text="|Qty: ${stock.quantity}|"></span>
             </div>
-          </article>
-          <!-- article 2 -->
-          <article class="span2" id="art2">
-            <div id="personal-detail">
-              <h3>ID :</h3>
-              <p th:text="${admin.adminId}"></p>
+          </div>
+        </article>
+        <!-- article 2 -->
+        <article class="span2" id="art2">
+          <div id="personal-detail">
+            <h3>ID :</h3>
+            <p th:text="${admin.adminId}"></p>
 
-              <h3>Name :</h3>
-              <p th:text="${admin.fullName}"></p>
+            <h3>Name :</h3>
+            <p th:text="${admin.fullName}"></p>
 
-              <h3>Role :</h3>
-              <p th:text="${admin.role}"></p>
+            <h3>Role :</h3>
+            <p th:text="${admin.role}"></p>
 
-              <h3>Contact Information :</h3>
-              <p></p>
-              <h4>Phone:</h4>
-              <p th:text="${admin.phone}"></p>
-              <h4>Email:</h4>
-              <p th:text="${admin.email}"></p>
-              <h4>Address:</h4>
-              <p th:text="${admin.address}"></p>
+            <h3>Contact Information :</h3>
+            <p></p>
+            <h4>Phone:</h4>
+            <p th:text="${admin.phone}"></p>
+            <h4>Email:</h4>
+            <p th:text="${admin.email}"></p>
+            <h4>Address:</h4>
+            <p th:text="${admin.address}"></p>
 
-              <h3>Business Registration Details :</h3>
-              <p></p>
-              <h4>Business Registration Number:</h4>
-              <p th:text="${admin.brn}"></p>
-              <h4>Tax Identification Number (TIN):</h4>
-              <p th:text="${admin.tin}"></p>
-            </div>
-            <div id="art2-imgcontainer">
-              <img src="images/avatar.png" alt="Invencio Image" />
-            </div>
-          </article>
-        </section>
-
-        <!-- bottom section -->
-        <section class="container">
-          <!-- article 3 -->
-          <article class="span2" id="art3">
-            <div id="art3-container">
-              <canvas id="myChart"></canvas>
-            </div>
-          </article>
-          <!-- article 4 -->
-          <article id="art4">
-            <h2>Low Stock</h2>
-            <div id="art4-container">
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-              <div class="low-stock">
-                <p>product</p>
-                <span>20kg</span>
-              </div>
-            </div>
-          </article>
-        </section>
+            <h3>Business Registration Details :</h3>
+            <p></p>
+            <h4>Business Registration Number:</h4>
+            <p th:text="${admin.brn}"></p>
+            <h4>Tax Identification Number (TIN):</h4>
+            <p th:text="${admin.tin}"></p>
+          </div>
+          <div id="art2-imgcontainer">
+            <img src="images/avatar.png" alt="Invencio Image" />
+          </div>
+        </article>
       </section>
-    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/chart.js"></script>
-  </body>
+      <!-- bottom section -->
+      <section class="container">
+        <!-- article 3 -->
+        <article class="span2" id="art3">
+          <div id="art3-container">
+            <canvas id="myChart"></canvas>
+          </div>
+        </article>
+        <!-- article 4 -->
+        <article id="art4">
+          <h2>Low Stock</h2>
+          <div id="art4-container">
+            <div class="low-stock" data-th-each="lowStock : ${lowStock}">
+              <p data-th-text="${lowStock.itemName}"></p>
+              <span data-th-text="|${lowStock.quantity}|"></span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
 
-  <script src="js/dash.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/chart.js"></script>
+</body>
+
+<script src="js/dash.js"></script>
+
 </html>
