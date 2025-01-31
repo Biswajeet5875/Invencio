@@ -35,6 +35,7 @@ public class CartController {
         response.put("stockId", stockResponce.getStockId());
         response.put("stockName", stockResponce.getItemName());
         response.put("price", stockResponce.getPrice());
+        response.put("category", stockResponce.getCategory());
         response.put("quantity", quantity);
 
         return ResponseEntity.ok(response);

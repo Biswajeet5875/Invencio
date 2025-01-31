@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cart Page - Invencio</title>
   <link rel="stylesheet" href="css/cart.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+
 </head>
 
 <body>
@@ -13,8 +17,8 @@
   <header class="header">
     <div class="logo">INVENCIO</div>
     <div class="search-bar">
-      <input type="text" placeholder="Search your item" />
-      <button>Search</button>
+      <input type="text" placeholder="Enter Customer Name" />
+      <input type="date" placeholder="Enter Date" />
     </div>
   </header>
 
@@ -57,45 +61,68 @@
 
       // Populate cart items
       cart.forEach((item, index) => {
+        if (!item.discount) item.discount = 0; // Ensure discount property exists
+
+        // Determine the image based on the product category
+        let productImage = "";
+        switch (item.category) {
+          case 'electronics':
+            productImage = "images/electronic.png";
+            break;
+          case 'apparel':
+            productImage = "images/apparel.png";
+            break;
+          case 'home-appliances':
+            productImage = "images/home-appliances.png";
+            break;
+          case 'groceries':
+            productImage = "images/groceries.png";
+            break;
+          default:
+            productImage = "images/default.png"; // default image if no category matches
+        }
+
         const itemElement = document.createElement("div");
         itemElement.className = "cart-item";
         itemElement.innerHTML = `
-          <img src="images/product.jpg" alt="Product Image" />
-          <div class="item-details">
-            <h3>${item.stockName}</h3>
-            <p class="stock">In Stock</p>
-            <div class="item-actions">
-              <button onclick="removeCartItem(${index})">Remove</button>
-            </div>
+        <img src="${productImage}" alt="Product Image" />
+        <div class="item-details">
+          <h3>${item.stockName}</h3>
+          <p class="stock">In Stock</p>
+          <div class="item-actions">
+            <button onclick="removeCartItem(${index})">Remove</button>
           </div>
-          <div class="item-quantity">
-  <select onchange="updateQuantity(${index}, this.value)">
-    ${[...Array(1500).keys()].map(qty => qty + 1).concat(item.quantity > 5 ? item.quantity : []).map(
+        </div>
+        <div class="item-quantity">
+          <select onchange="updateQuantity(${index}, this.value)">
+            ${[...Array(1500).keys()].map(qty => qty + 1).concat(item.quantity > 5 ? item.quantity : []).map(
           qty => `<option value="${qty}" ${qty === item.quantity ? "selected" : ""}>${qty}</option>`
         ).join("")}
-  </select>
-  <p>₹${item.price}</p>
-</div>
-        `;
+          </select>
+          <input type="number" min="0" max="100" value="${item.quantity}" />
+        </div>
+        <div class="item-price">
+          <p>₹${(item.price * item.quantity) - (item.discount * item.quantity)}</p>
+        </div>
+      `;
 
         cartItemsContainer.appendChild(itemElement);
-
-        // Update subtotal and item count
-        subtotal += item.price * item.quantity;
         itemCount += item.quantity;
+        subtotal += (item.price * item.quantity) - (item.discount * item.quantity);
       });
 
-      // Update cart summary
+      // Update cart item count and subtotal
       cartItemCount.textContent = itemCount;
-      cartSubtotal.textContent = `₹${subtotal}`;
+      cartSubtotal.textContent = "₹" + subtotal.toFixed(2);
     }
+
 
     // Function to remove a cart item
     function removeCartItem(index) {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.splice(index, 1); // Remove item from cart
+      cart.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(cart));
-      loadCart(); // Reload cart
+      loadCart();
     }
 
     // Function to update item quantity
@@ -103,35 +130,117 @@
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart[index].quantity = parseInt(quantity);
       localStorage.setItem("cart", JSON.stringify(cart));
-      loadCart(); // Reload cart
+      loadCart();
+    }
+
+    // Function to update discount for an item
+    function updateDiscount(index, discount) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart[index].discount = Math.min(100, Math.max(0, parseFloat(discount))); // Ensure valid discount
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    // Function to generate a unique invoice ID
+    function generateInvoiceId() {
+      const now = new Date();
+
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so add 1
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+
+      // Create a unique invoice ID in the format: YYYYMMDDHHMMSSSSS
+      const invoiceId = `${year}${month}${day}${hours}${minutes}${seconds}${milliseconds}`;
+
+      return invoiceId;
     }
 
     // Function to handle checkout
     async function checkout() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const customerName = document.querySelector(".search-bar input[type='text']").value.trim();
+      const orderDate = document.querySelector(".search-bar input[type='date']").value;
+
+      if (!customerName || !orderDate) {
+        alert("Please enter customer name and date.");
+        return;
+      }
 
       if (cart.length === 0) {
         alert("Your cart is empty!");
         return;
       }
 
+      // Generate the invoice ID
+      const invoiceId = generateInvoiceId();
+
+      // Header
+      pdf.setFontSize(16);
+      pdf.text(`Invoice ID: ${invoiceId}`, 14, 20);  // Displaying Invoice ID
+      pdf.text(`Customer Name - ${customerName}`, 14, 30);
+      pdf.setFontSize(12);
+      pdf.text(`Date: ${orderDate}`, 14, 40);
+
+      // Table headers
+      const headers = ["Item No", "Name", "Price", "Qty", "Discount", "Total"];
+
+      // Table data
+      let subtotal = 0;
+      const data = cart.map((item, index) => {
+        const discountedPrice = item.price * item.quantity * (1 - item.discount / 100);
+        subtotal += discountedPrice;
+        return [
+          index + 1,
+          item.stockName,
+          `₹${parseFloat(item.price).toFixed(2)}`,
+          item.quantity,
+          `${item.discount}%`,
+          `₹${discountedPrice.toFixed(2)}`
+        ];
+      });
+
+      // Add table using autoTable
+      pdf.autoTable({
+        startY: 50,
+        head: [headers],
+        body: data,
+        theme: "grid",
+        styles: { halign: "center" },
+        headStyles: { fillColor: [0, 0, 0] },
+      });
+
+      // Total Amount
+      pdf.setFontSize(14);
+      pdf.text(`Total Amount: ₹${subtotal.toFixed(2)}`, 14, pdf.lastAutoTable.finalY + 10);
+
+      // Generate PDF filename
+      const fileName = `${customerName}_${invoiceId}.pdf`;
+
+      // Save PDF
+      pdf.save(fileName);
+
+      // After saving, update stock and clear cart
       try {
         const response = await fetch("http://localhost:8081/update-stock-quantity", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(cart), // Sending cart data to backend
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cart),
         });
 
         if (response.ok) {
           alert("Checkout completed successfully!");
-          localStorage.removeItem("cart"); // Clear the cart
+          localStorage.removeItem("cart");
           loadCart();
           window.location.href = "http://localhost:8081/viewstock";
-          // Reload the cart
         } else {
-          const errorMessage = await response.text(); // Get the error message from the response
+          const errorMessage = await response.text();
           alert(`Failed to update stock: ${errorMessage}`);
         }
       } catch (error) {
@@ -141,10 +250,10 @@
     }
 
 
-
     // Load cart items when the page loads
     window.onload = loadCart;
   </script>
+
 </body>
 
 </html>

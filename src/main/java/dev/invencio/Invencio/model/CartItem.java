@@ -8,4 +8,5 @@ public class CartItem {
     private String stockName;
     private String price;
     private int quantity;
+    private String category;
 }
