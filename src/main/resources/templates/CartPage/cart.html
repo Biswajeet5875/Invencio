@@ -63,7 +63,6 @@
       cart.forEach((item, index) => {
         if (!item.discount) item.discount = 0; // Ensure discount property exists
 
-        // Determine the image based on the product category
         let productImage = "";
         switch (item.category) {
           case 'electronics':
@@ -85,37 +84,38 @@
         const itemElement = document.createElement("div");
         itemElement.className = "cart-item";
         itemElement.innerHTML = `
-        <img src="${productImage}" alt="Product Image" />
-        <div class="item-details">
-          <h3>${item.stockName}</h3>
-          <p class="stock">In Stock</p>
-          <div class="item-actions">
-            <button onclick="removeCartItem(${index})">Remove</button>
+          <img src="${productImage}" alt="Product Image" />
+          <div class="item-details">
+            <h3>${item.stockName}</h3>
+            <p class="stock">In Stock</p>
+            <div class="item-actions">
+              <button onclick="removeCartItem(${index})">Remove</button>
+            </div>
           </div>
-        </div>
-        <div class="item-quantity">
-          <select onchange="updateQuantity(${index}, this.value)">
-            ${[...Array(1500).keys()].map(qty => qty + 1).concat(item.quantity > 5 ? item.quantity : []).map(
+          <div class="item-quantity">
+            <select onchange="updateQuantity(${index}, this.value)">
+              ${[...Array(1500).keys()].map(qty => qty + 1).concat(item.quantity > 5 ? item.quantity : []).map(
           qty => `<option value="${qty}" ${qty === item.quantity ? "selected" : ""}>${qty}</option>`
         ).join("")}
-          </select>
-          <input type="number" min="0" max="100" value="${item.quantity}" />
-        </div>
-        <div class="item-price">
-          <p>₹${(item.price * item.quantity) - (item.discount * item.quantity)}</p>
-        </div>
-      `;
+            </select>
+            <input type="number" min="0" max="100" value="${item.discount}" 
+                   oninput="updateDiscount(${index}, this.value)" placeholder="Discount %" />
+                   <p>₹${(item.price)}</p>
+                   <p>₹${(item.price * item.quantity * (1 - item.discount / 100)).toFixed(2)}</p>
+          </div>
+        `;
 
         cartItemsContainer.appendChild(itemElement);
+
+        // Calculate subtotal
+        subtotal += item.price * item.quantity * (1 - item.discount / 100);
         itemCount += item.quantity;
-        subtotal += (item.price * item.quantity) - (item.discount * item.quantity);
       });
 
-      // Update cart item count and subtotal
+      // Update cart summary
       cartItemCount.textContent = itemCount;
-      cartSubtotal.textContent = "₹" + subtotal.toFixed(2);
+      cartSubtotal.textContent = `₹${subtotal.toFixed(2)}`;
     }
-
 
     // Function to remove a cart item
     function removeCartItem(index) {
@@ -199,10 +199,10 @@
         return [
           index + 1,
           item.stockName,
-          `₹${parseFloat(item.price).toFixed(2)}`,
+          `Rs.${parseFloat(item.price).toFixed(2)}`,
           item.quantity,
           `${item.discount}%`,
-          `₹${discountedPrice.toFixed(2)}`
+          `Rs.${discountedPrice.toFixed(2)}`
         ];
       });
 
@@ -218,7 +218,7 @@
 
       // Total Amount
       pdf.setFontSize(14);
-      pdf.text(`Total Amount: ₹${subtotal.toFixed(2)}`, 14, pdf.lastAutoTable.finalY + 10);
+      pdf.text(`Total Amount: Rs.${subtotal.toFixed(2)}`, 14, pdf.lastAutoTable.finalY + 10);
 
       // Generate PDF filename
       const fileName = `${customerName}_${invoiceId}.pdf`;
